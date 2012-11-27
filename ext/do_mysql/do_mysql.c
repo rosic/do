@@ -453,10 +453,6 @@ static MYSQL_RES* cCommand_execute_async(VALUE self, MYSQL* db, VALUE query) {
   const char* str = rb_str_ptr_readonly(query);
   size_t len      = rb_str_len(query);
 
-  if((retval = mysql_ping(db)) && mysql_errno(db) == CR_SERVER_GONE_ERROR) {
-    VALUE connection = rb_iv_get(self, "@connection");
-    full_connect(connection, db);
-  }
   retval = mysql_send_query(db, str, len);
 
   CHECK_AND_RAISE(retval, query);
