@@ -122,12 +122,6 @@ MYSQL_RES *do_mysql_cCommand_execute_sync(VALUE self, VALUE connection, MYSQL *d
   const char *str = rb_str_ptr_readonly(query);
   long len = rb_str_len(query);
 
-  if (mysql_ping(db) && mysql_errno(db) == CR_SERVER_GONE_ERROR) {
-    // Ok, we do one more try here by doing a full connect
-    VALUE connection = rb_iv_get(self, "@connection");
-    do_mysql_full_connect(connection, db);
-  }
-
   gettimeofday(&start, NULL);
   retval = mysql_real_query(db, str, len);
   data_objects_debug(connection, query, &start);
@@ -139,10 +133,6 @@ MYSQL_RES *do_mysql_cCommand_execute_sync(VALUE self, VALUE connection, MYSQL *d
 #else
 MYSQL_RES *do_mysql_cCommand_execute_async(VALUE self, VALUE connection, MYSQL *db, VALUE query) {
   int retval;
-
-  if ((retval = mysql_ping(db)) && mysql_errno(db) == CR_SERVER_GONE_ERROR) {
-    do_mysql_full_connect(connection, db);
-  }
 
   struct timeval start;
   const char *str = rb_str_ptr_readonly(query);
