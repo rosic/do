@@ -1,6 +1,7 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+<<<<<<< HEAD
   <groupId>org.dataobjects</groupId>
   <artifactId>dataobjects</artifactId>
   <packaging>pom</packaging>
@@ -119,55 +120,37 @@
       </plugins>
     </pluginManagement>
   </build>
+=======
+  <parent>
+    <groupId>org.dataobjects</groupId>
+    <artifactId>dataobjects</artifactId>
+    <version>0.10.10</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <artifactId>do_mysql</artifactId>
+  <packaging>jar</packaging>
+  <name>do_mysql</name>
+  <description>A DataObjects.rb driver for MySQL</description>
+>>>>>>> one gem, one repo
   <dependencies>
     <dependency>
-      <groupId>org.jruby</groupId>
-      <artifactId>jruby-complete</artifactId>
-      <version>1.6.0</version>
+      <groupId>${pom.parent.groupId}</groupId>
+      <artifactId>do_jdbc</artifactId>
+      <version>${pom.parent.version}</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.0.4</version>
+    </dependency>
   </dependencies>
-  <modules>
-    <!-- the "core" module -->
-    <module>do_jdbc</module>
-    <!-- build tools for do_jdbc -->
-    <module>do_jdbc-tools</module>
-    <!-- each of the drivers with JDBC support -->
-    <module>do_derby</module>
-    <module>do_h2</module>
-    <module>do_hsqldb</module>
-    <module>do_mysql</module>
-    <module>do_oracle</module>
-    <module>do_postgres</module>
-    <module>do_sqlite3</module>
-    <module>do_sqlserver</module>
-  </modules>
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <version>2.0.1</version>
-        <configuration>
-          <xmlOutput>true</xmlOutput>
-          <xmlOutputDirectory>target/site</xmlOutputDirectory>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>2.4</version>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>javancss-maven-plugin</artifactId>
-        <version>2.0-beta-2</version>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
-        <version>2.3</version>
-      </plugin>
-    </plugins>
-  </reporting>
+  <profiles>
+    <profile>
+      <id>skip_mysql</id>
+      <properties>
+        <skipSpecs>true</skipSpecs>
+      </properties>
+    </profile>
+  </profiles>
 </project>
