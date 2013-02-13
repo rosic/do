@@ -118,7 +118,7 @@ module DataObjects
             end
 
             def self.new(*args)
-              (@__pools[args] ||= __pool_lock.synchronize { Pool.new(self.pool_size, self, args) }).new
+              __pool_lock.synchronize { @__pools[args] ||= Pool.new(self.pool_size, self, args) }.new
             end
 
             def self.__pools
@@ -126,7 +126,7 @@ module DataObjects
             end
 
             def self.pool_size
-              8
+              2
             end
           end
         end
