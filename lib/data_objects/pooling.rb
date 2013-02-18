@@ -126,7 +126,7 @@ module DataObjects
             end
 
             def self.pool_size
-              2
+              1
             end
           end
         end
@@ -230,8 +230,13 @@ module DataObjects
       end
 
       def dispose
-        flush!
-        @resource.__pools.delete(@args)
+        lock.synchronize do
+          while !@used.empty?
+            wait.wait(lock)
+          end
+          @available.pop.dispose until @available.empty?
+          @resource.__pools.delete(@args)
+        end
         !DataObjects::Pooling.pools.delete?(self).nil?
       end
 
