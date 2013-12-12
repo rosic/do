@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.authors = ["Dirkjan Bussink"]
   s.description = %q{Implements the DataObjects API for MySQL}
   s.email = %q{d.bussink@gmail.com}
-  s.extensions = ["ext/do_mysql/extconf.rb"]
+  s.extensions = ["ext/extconf.rb"]
   s.extra_rdoc_files = [
     "ChangeLog.markdown",
     "LICENSE",
@@ -19,13 +19,13 @@ Gem::Specification.new do |s|
     "LICENSE",
     "README.markdown",
     "Rakefile",
-    "ext/do_mysql/compat.h",
-    "ext/do_mysql/do_common.c",
-    "ext/do_mysql/do_common.h",
-    "ext/do_mysql/do_mysql.c",
-    "ext/do_mysql/error.h",
-    "ext/do_mysql/extconf.rb",
-    "ext/do_mysql/mysql_compat.h",
+    "ext/compat.h",
+    "ext/do_common.c",
+    "ext/do_common.h",
+    "ext/do_mysql.c",
+    "ext/error.h",
+    "ext/extconf.rb",
+    "ext/mysql_compat.h",
     "lib/do_mysql.rb",
     "lib/do_mysql/encoding.rb",
     "lib/do_mysql/transaction.rb",
